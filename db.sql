@@ -9,3 +9,4 @@ create table documents (
     fakeName text,
     content text,
 )
+
