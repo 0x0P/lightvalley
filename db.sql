@@ -1,12 +1,12 @@
-create user lightvalley@localhost;
-grant all privileges on lightvalley.* to lightvalley@localhost;
+CREATE USER lightvalley;
 create database lightvalley;
-use lightvalley;
+GRANT ALL PRIVILEGES ON DATABASE lightvalley TO lightvalley;
 
 create table documents (
-    version number
+    version bigint,
     name text,
     fakeName text,
     content text,
+    time date
 )
 
