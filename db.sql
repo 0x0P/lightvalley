@@ -5,7 +5,7 @@ GRANT ALL PRIVILEGES ON DATABASE lightvalley TO lightvalley;
 CREATE TABLE documents (
     version bigint,
     name text,
-    fakeName text,
+    displayName text,
     content text,
     time date,
     permisson text
