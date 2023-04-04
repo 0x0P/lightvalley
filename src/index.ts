@@ -1,14 +1,19 @@
-import express from "express";
-import docs from "./router/docs/index";
+import express, { NextFunction, Request, Response } from "express";
+import index from "./router";
+import { db } from "./global";
 
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("#LightValley");
+db.connect((e) => {
+  if (e) {
+    console.error(e.stack);
+  } else {
+    console.log("DB 연결됨");
+  }
 });
 
-app.use("/docs", docs);
+app.use("/", index);
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`);
