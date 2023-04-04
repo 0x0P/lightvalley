@@ -1,6 +1,8 @@
 interface Document {
   version: number;
   name: string;
-  fakeName: string;
+  displayName: string;
   content: string;
+  read: number;
+  edit: number;
 }
