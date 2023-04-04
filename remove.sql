@@ -1,4 +1,5 @@
 DROP TABLE documents;
+DROP TABLE users;
 DROP OWNED BY lightvalley;
 REVOKE CONNECT ON DATABASE lightvalley FROM public;
 DROP USER lightvalley;

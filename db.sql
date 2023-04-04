@@ -8,6 +8,16 @@ CREATE TABLE documents (
     displayName text,
     content text,
     time date,
-    permisson text
+    read number,
+    edit number,
+)
+
+CREATE TABLE users (
+    name text,
+    password text,
+    salt text,
+    time date,
+    read number,
+    edit number,
 )
 
