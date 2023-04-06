@@ -3,6 +3,5 @@ interface User {
   password: string;
   salt: string;
   time: Date;
-  read: number;
-  edit: number;
+  permissions: number;
 }
