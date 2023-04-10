@@ -1,17 +1,12 @@
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import index from "./router";
+import bodyParser from "body-parser";
 import { db } from "./global";
 
 const app = express();
 const port = 3000;
 
-db.connect((e) => {
-  if (e) {
-    console.error(e.stack);
-  } else {
-    console.log("DB 연결됨");
-  }
-});
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/", index);
 
