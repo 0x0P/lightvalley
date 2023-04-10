@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS documents (
     displayName text,
     content text,
     time date,
+    category array,
     read integer,
     edit integer
 );
