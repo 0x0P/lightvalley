@@ -1,6 +1,7 @@
 CREATE USER lightvalley;
 CREATE DATABASE lightvalley;
 GRANT ALL PRIVILEGES ON DATABASE lightvalley TO lightvalley;
+\c lightvalley lightvalley;
 
 CREATE TABLE IF NOT EXISTS documents (
     version bigint,
@@ -14,9 +15,10 @@ CREATE TABLE IF NOT EXISTS documents (
 );
 
 CREATE TABLE IF NOT EXISTS users (
-    name text,
-    password text,
-    salt text,
-    time date,
+    id serial UNIQUE PRIMARY KEY,
+    name text NOT NULL,
+    password bytea NOT NULL,
+    salt bytea NOT NULL,
+    time timestamp NOT NULL,
     permission integer
 );
