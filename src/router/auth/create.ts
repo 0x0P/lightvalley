@@ -7,11 +7,13 @@ const router = Router();
 
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const { name, pw } = req.body;
+    const { name, tag, pw } = req.body;
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(pw, salt);
     const user: User = {
       name,
+      tag: tag,
+      identifier: name + "#" + tag,
       password,
       salt,
       time: new Date(),

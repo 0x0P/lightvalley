@@ -1,5 +1,7 @@
 export interface User {
   name: string;
+  tag: number;
+  identifier: string;
   password: string;
   salt: string;
   time: Date;

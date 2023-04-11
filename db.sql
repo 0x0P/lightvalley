@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS documents (
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL UNIQUE PRIMARY KEY,
     name TEXT NOT NULL,
-    tag CHAR(4) CHECK (tag >= '0000' AND tag <= '9999') NOT NULL,
+    tag VARCHAR(4) CHECK (tag ~ '^[0-9]{4}$') NOT NULL,
     identifier TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
     salt TEXT NOT NULL,
