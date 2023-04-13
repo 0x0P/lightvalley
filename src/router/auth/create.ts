@@ -19,10 +19,10 @@ router.post("/", async (req: Request, res: Response) => {
       permission: permission.user,
     };
     await db("users").insert(user);
-    res.status(201).json({ message: "계정이 생성되었습니다." });
+    res.status(201).json({ ok: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error });
+    res.status(500).json({ ok: false, error: error });
   }
 });
 
