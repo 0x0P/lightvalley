@@ -21,7 +21,6 @@ CREATE TABLE IF NOT EXISTS users (
     tag VARCHAR(4) CHECK (tag ~ '^[0-9]{4}$') NOT NULL,
     identifier TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    salt TEXT NOT NULL,
     time TIMESTAMP NOT NULL,
     permission integer
 );
