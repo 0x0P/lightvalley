@@ -1,5 +1,5 @@
 import express from "express";
-import index from "./router";
+import index from "./routes";
 import bodyParser from "body-parser";
 import { db } from "./global";
 
