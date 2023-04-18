@@ -3,16 +3,10 @@ import * as readline from "node:readline";
 import bcrypt from "bcrypt";
 import { User, permission } from "./src/types/user";
 import { db } from "./src/global";
-
-function makeKey(num: number) {
-  let text = "";
-  for (let i = 0; i < num; i++) {
-    text += String.fromCharCode(Math.floor(Math.random() * 65535));
-  }
-  return text;
-}
+import { makeKey } from "./src/utils/makeKey";
 
 console.log(`✨Lightvalley SETUP✨`);
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
