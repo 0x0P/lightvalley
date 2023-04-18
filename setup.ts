@@ -52,6 +52,7 @@ ask(q)
     };
     await db("users").insert(user);
     console.log("✨소유자 계정 생성 완료✨");
+    process.exit();
   })
   .catch((error) => {
     console.error(error);
