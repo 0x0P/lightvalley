@@ -3,12 +3,13 @@ import { db } from "../../global";
 import bcrypt from "bcrypt";
 import { User } from "../../types/user";
 import jwt from "jsonwebtoken";
+import { authReqbody } from "../../types/req";
 
 const router = Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { name, tag, pw } = req.body;
+    const { name, tag, pw }: authReqbody = req.body;
     const identifier = name + "#" + tag;
     const user: User = await db("users")
       .select()

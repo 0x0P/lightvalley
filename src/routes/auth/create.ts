@@ -2,12 +2,13 @@ import { Request, Response, Router } from "express";
 import { db } from "../../global";
 import bcrypt from "bcrypt";
 import { User, permission } from "../../types/user";
+import { authReqbody } from "../../types/req";
 
 const router = Router();
 
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const { name, tag, pw } = req.body;
+    const { name, tag, pw }: authReqbody = req.body;
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(pw, salt);
     const user: User = {
