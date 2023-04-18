@@ -52,4 +52,4 @@ ask(q)
     console.error(error);
   });
 
-fs.writeFileSync(".env", `PUBLIC=${makeKey(1000)}\nPRIVATE=${makeKey(1000)}`);
+fs.writeFileSync(".env", `ACCESS=${makeKey(1000)}\nREFRESH=${makeKey(1000)}`);
