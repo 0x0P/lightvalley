@@ -1,12 +1,16 @@
 import express from "express";
 import index from "./routes";
 import bodyParser from "body-parser";
-import { db } from "./global";
+import * as dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 3000;
 
+dotenv.config({ path: "../.env" });
+
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 app.use("/", index);
 
