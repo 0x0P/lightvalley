@@ -33,7 +33,7 @@ const ask = async (questions: Array<string>): Promise<Array<string>> => {
 ask(q)
   .then(async (answers) => {
     const [name, tag, pw] = answers;
-    if (!pw) return console.log("비밀번호가 없습니다.");
+    if (!pw) return console.log("비밀번호가 없어요.");
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(pw, salt);
     const user: User = {
