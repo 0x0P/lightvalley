@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS documents (
     type TEXT,
     author TEXT,
     name TEXT UNIQUE NOT NULL,
-    displayName TEXT,
+    displayname TEXT,
     content TEXT,
     time DATE,
     category TEXT[], 

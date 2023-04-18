@@ -1,14 +1,15 @@
 export interface Document {
   version: number;
-  type: types;
+  type: documentTypes;
+  author: string;
   name: string;
-  displayName: string;
+  displayname: string;
   content: string;
   read: number;
   edit: number;
 }
 
-export enum types {
+export enum documentTypes {
   DOCUMENT = "DOCUMENT",
   FILE = "FILE",
   CATEGORY = "CATEGORY",
