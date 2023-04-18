@@ -1,4 +1,4 @@
-interface Document {
+export interface Document {
   version: number;
   type: string;
   name: string;
@@ -6,4 +6,12 @@ interface Document {
   content: string;
   read: number;
   edit: number;
+}
+
+export enum types {
+  DOCUMENT = "DOCUMENT",
+  FILE = "FILE",
+  CATEGORY = "CATEGORY",
+  SYSTEM = "SYSTEM",
+  TAMPLATE = "TAMPLATE",
 }
