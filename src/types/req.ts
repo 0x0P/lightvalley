@@ -1,14 +1,21 @@
 import { documentTypes } from "./document";
+import { Request } from "express";
 
-export type createDocumentReqBody = {
+export interface createDocumentReqBody {
   name: string;
   displayName: string;
   content: string;
   type: documentTypes;
-};
+}
 
-export type authReqbody = {
+export interface authReqbody {
   name: string;
   tag: number;
   pw: string;
-};
+}
+
+declare module "express" {
+  export interface Request {
+    user?: any;
+  }
+}
