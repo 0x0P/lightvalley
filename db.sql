@@ -6,6 +6,7 @@ GRANT ALL PRIVILEGES ON DATABASE lightvalley TO lightvalley;
 CREATE TABLE IF NOT EXISTS documents (
     version BIGINT,
     type TEXT,
+    author TEXT,
     name TEXT UNIQUE NOT NULL,
     displayName TEXT,
     content TEXT,
