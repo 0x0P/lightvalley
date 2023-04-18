@@ -1,6 +1,6 @@
 export interface Document {
   version: number;
-  type: string;
+  type: types;
   name: string;
   displayName: string;
   content: string;
