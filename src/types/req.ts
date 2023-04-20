@@ -14,6 +14,13 @@ export interface authReqbody {
   pw: string;
 }
 
+export interface ReqUser {
+  id?: number;
+  name: string;
+  tag: number | string;
+  identifier: string;
+}
+
 declare module "express" {
   export interface Request {
     user?: any;

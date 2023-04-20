@@ -1,4 +1,5 @@
 export interface User {
+  id?: number;
   name: string;
   tag: number | string;
   identifier: string;
