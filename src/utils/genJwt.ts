@@ -1,18 +1,26 @@
 import * as jwt from "jsonwebtoken";
-import { authReqbody } from "../types/req";
+import { ReqUser } from "../types/req";
+import { refreshToken } from "./refresh";
+import { Response } from "express";
+import { cookie } from "../types/cookie";
 
 export const genJwtToken = (
-  payload: authReqbody,
+  payload: ReqUser,
   secretKey: string,
   expiresIn: string
 ) => {
   return jwt.sign(payload, secretKey, { expiresIn });
 };
 
-export const verifyJwtToken = (token: string, secretKey: string) => {
+export const verifyJwtToken = (
+  token: string,
+  secretKey: string,
+  res: Response,
+  cookie: cookie
+) => {
   try {
     return jwt.verify(token, secretKey);
-  } catch (err) {
-    throw new Error("토근이 유효하지 않아요.");
+  } catch {
+    refreshToken(cookie.RefreshToken, res as Response);
   }
 };

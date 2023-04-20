@@ -1,13 +1,6 @@
-import { authReqbody } from "../types/req";
-import { genJwtToken, verifyJwtToken } from "./genJwt";
-import * as dotenv from "dotenv";
+import { ReqUser } from "../types/req";
+import { genJwtToken } from "./genJwt";
 
-dotenv.config();
-
-export const genRefreshToken = (user: authReqbody) => {
-  return genJwtToken(user, process.env.REFRESH ?? "", "7d");
-};
-
-export const verifyRefreshToken = (accessToken: string) => {
-  return verifyJwtToken(accessToken, process.env.REFRESH ?? "");
+export const genRefreshToken = (user: ReqUser) => {
+  return genJwtToken(user, process.env.REFRESH as string, "7d");
 };
