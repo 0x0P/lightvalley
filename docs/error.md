@@ -12,9 +12,10 @@ Request : 리퀘스트
 Auth : 계정 및 로그인    
 Docs : 문서
 
-### Req : 리퀘스트
+### Request : 리퀘스트
 
-1 : 필수 body 누락 
+1 : 필수 body 누락   
+2 : RefreshToken 쿠키 손상
 
 ### Auth : 계정 및 로그인
 
