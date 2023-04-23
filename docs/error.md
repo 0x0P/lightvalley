@@ -8,7 +8,7 @@ ex) Auth:1
 
 
 ## 타입
-Request : 리퀘스트
+Request : 리퀘스트   
 Auth : 계정 및 로그인    
 Docs : 문서
 
