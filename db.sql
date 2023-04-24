@@ -7,10 +7,11 @@ CREATE TABLE IF NOT EXISTS documents (
     version BIGINT,
     type TEXT,
     author TEXT,
-    name TEXT UNIQUE NOT NULL,
+    name TEXT,
+    identifier TEXT UNIQUE NOT NULL,
     displayname TEXT,
     content TEXT,
-    time DATE,
+    time TIMESTAMP NOT NULL,
     category TEXT[], 
     read INTEGER,
     edit INTEGER
