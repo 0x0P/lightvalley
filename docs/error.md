@@ -14,7 +14,8 @@ ex) Auth:1
 
 Request : 리퀘스트  
 Auth : 계정 및 로그인  
-Docs : 문서
+Docs : 문서  
+Server : 서버
 
 ### Request : 리퀘스트
 
@@ -31,3 +32,8 @@ Docs : 문서
 1 : 문서를 찾을 수 없음  
 2 : READ 권한 부족  
 3 : EDIT 권한 부족
+4 : EDIT 변경 사항 없음
+
+### Server : 서버
+
+1 : 서버 오류 발생
