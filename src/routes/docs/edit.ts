@@ -19,42 +19,81 @@ router.put("/", checkAuth, async (req: Request, res: Response) => {
       read,
       edit,
     }: editDocumentReqBody = req.body;
-    if (![name, type].every(Boolean))
-      return res.status(400).json({ ok: false });
-    const hash = crypto.createHash("sha256");
-    hash.update(req.ip + makeKey(10));
+
+    if (!name || !type) {
+      return res.status(400).json({ ok: false, status: "Request:1" });
+    }
+
     const document = await db<Document>("documents")
       .select()
-      .where("name", "=", name)
-      .andWhere("type", "=", type)
-      .orderBy("time", "desc")
+      .where("name", name)
+      .andWhere("type", type)
+      .orderBy("version", "desc")
       .limit(1)
       .first();
-    if (document) {
-      if (await checkPermission(req.user.id, document.edit)) {
-        const newDocument: Document = {
-          version: Number(document.version) + 1,
-          type: type,
-          author: hash.digest("hex"),
-          name: name || document.name,
-          identifier: `${type}:${name}:${Number(document.version) + 1}`,
-          displayname: displayName || document.displayname,
-          content: content || document.content,
-          time: new Date(),
-          read: read || document.read,
-          edit: edit || document.edit,
-        };
-        await db("documents").insert(newDocument);
-        res.status(200).json({ ok: true });
-      } else {
-        res.status(403).json({ ok: false, error: "권한이 없어요." });
-      }
-    } else {
-      res.status(404).json({ ok: false, error: "문서를 찾을 수 없어요." });
+
+    if (!document) {
+      return res.status(404).json({ ok: false, status: "Docs:1" });
     }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ ok: false, error: err });
+
+    const canEdit = await checkPermission(req.user.id, document.edit);
+    if (!canEdit) {
+      return res.status(403).json({ ok: false, status: "Docs:3" });
+    }
+
+    const newEdit = (await checkPermission(req.user.id, Number(edit)))
+      ? Number(edit)
+      : document.edit;
+    const newRead = (await checkPermission(req.user.id, Number(read)))
+      ? Number(read)
+      : document.read;
+
+    const newDocument: Document = {
+      version: document.version + 1,
+      type: document.type,
+      author: crypto
+        .createHash("sha256")
+        .update(req.ip + makeKey(10))
+        .digest("hex"),
+      name: name,
+      identifier: `${document.type}:${name}:${document.version + 1}`,
+      displayname: displayName || document.displayname,
+      content: content || document.content,
+      time: new Date(),
+      read: newRead,
+      edit: newEdit,
+    };
+
+    const checkBeforeDocument = {
+      type: document.type,
+      name: document.name,
+      displayName: document.displayname,
+      content: document.content,
+      read: document.read,
+      edit: document.edit,
+    };
+
+    const checkNewDocument = {
+      type: newDocument.type,
+      name: newDocument.name,
+      displayName: newDocument.displayname,
+      content: newDocument.content,
+      read: newDocument.read,
+      edit: newDocument.edit,
+    };
+
+    if (
+      JSON.stringify(checkBeforeDocument) === JSON.stringify(checkNewDocument)
+    ) {
+      return res.status(400).json({ ok: false, status: "Docs:4" });
+    }
+
+    await db("documents").insert(newDocument);
+
+    return res.status(200).json({ ok: true });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ ok: false, status: "Server:1" });
   }
 });
 
