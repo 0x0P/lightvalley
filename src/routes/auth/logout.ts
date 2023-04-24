@@ -10,7 +10,7 @@ router.post("/", checkAuth, async (req, res) => {
     res.status(200).json({ ok: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ ok: false, error });
+    res.status(500).json({ ok: false, status: "Server:1" });
   }
 });
 export default router;

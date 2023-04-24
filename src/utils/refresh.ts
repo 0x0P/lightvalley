@@ -30,10 +30,10 @@ export const refreshToken = async (refreshToken: string, res: Response) => {
       });
       return jwt.verify(accessToken, process.env.ACCESS as string);
     } else {
-      res.status(404).json({ ok: false, error: "Auth:1" });
+      res.status(404).json({ ok: false, status: "Auth:1" });
     }
-  } catch (err) {
-    console.error(err);
-    res.status(403).json({ ok: false, error: "Request : 2" });
+  } catch (error) {
+    console.error(error);
+    res.status(403).json({ ok: false, status: "Request : 2" });
   }
 };

@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
     res.status(200).json({ ok: true, document: document });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ ok: false, error });
+    res.status(500).json({ ok: false, status: "Server:1" });
   }
 });
 

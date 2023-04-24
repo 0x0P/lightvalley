@@ -10,7 +10,7 @@ router.post("/", async (req: Request, res: Response) => {
   try {
     const { name, tag, pw }: authReqbody = req.body;
     if (!name || !tag || !pw)
-      return res.status(400).json({ ok: false, error: "Request:1" });
+      return res.status(400).json({ ok: false, status: "Request:1" });
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(pw, salt);
     const user: User = {
@@ -25,7 +25,7 @@ router.post("/", async (req: Request, res: Response) => {
     res.status(201).json({ ok: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ ok: false, error: error });
+    res.status(500).json({ ok: false, status: "Server:1" });
   }
 });
 

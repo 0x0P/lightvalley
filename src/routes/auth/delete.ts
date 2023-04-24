@@ -8,7 +8,7 @@ const router = Router();
 router.delete("/", checkAuth, async (req: Request, res: Response) => {
   try {
     const { pw } = req.body;
-    if (!pw) return res.status(400).json({ ok: false, error: "Request:1" });
+    if (!pw) return res.status(400).json({ ok: false, status: "Request:1" });
     const user: User = await db("users")
       .select()
       .where("id", req.user.id)
@@ -24,12 +24,12 @@ router.delete("/", checkAuth, async (req: Request, res: Response) => {
             res.send({ ok: true });
           });
       } else {
-        res.send({ ok: false, error: "Auth:2" });
+        res.send({ ok: false, status: "Auth:2" });
       }
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ ok: false, error: error });
+    res.status(500).json({ ok: false, status: "Server:1" });
   }
 });
 

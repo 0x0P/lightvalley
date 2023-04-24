@@ -12,7 +12,7 @@ router.post("/", async (req, res) => {
   try {
     const { name, tag, pw }: authReqbody = req.body;
     if (!name || !tag || !pw)
-      return res.status(400).json({ ok: false, error: "Request:1" });
+      return res.status(400).json({ ok: false, status: "Request:1" });
     const identifier = name + "#" + tag;
     const user: User = await db("users")
       .select()
@@ -36,12 +36,12 @@ router.post("/", async (req, res) => {
         });
         res.send({ ok: true });
       } else {
-        res.send({ ok: false, error: "Auth:2" });
+        res.send({ ok: false, status: "Auth:2" });
       }
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ ok: false, error });
+    res.status(500).json({ ok: false, status: "Server:1" });
   }
 });
 export default router;
