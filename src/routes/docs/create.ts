@@ -8,22 +8,29 @@ import { makeKey } from "../../utils/makeKey";
 const router = Router();
 router.post("/", async (req, res) => {
   try {
-    const { name, displayName, content, type }: createDocumentReqBody =
-      req.body;
+    const {
+      name,
+      displayName,
+      content,
+      type,
+      read,
+      edit,
+    }: createDocumentReqBody = req.body;
     if (![name, displayName, content, type].every(Boolean))
       return res.status(400).json({ ok: false });
     const hash = crypto.createHash("sha256");
     hash.update(req.ip + makeKey(10));
-
     const document: Document = {
       version: 1,
       type: documentTypes[type],
       author: hash.digest("hex"),
       name,
+      identifier: `${type}:${name}:1`,
       displayname: displayName,
       content,
-      read: 0,
-      edit: 0,
+      time: new Date(),
+      read: read || 3,
+      edit: edit || 3,
     };
 
     await db("documents").insert(document);
