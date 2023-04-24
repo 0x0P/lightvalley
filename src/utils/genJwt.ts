@@ -12,7 +12,7 @@ export const genJwtToken = (
   return jwt.sign(payload, secretKey, { expiresIn });
 };
 
-export const verifyJwtToken = (
+export const verifyJwtToken = async (
   token: string,
   secretKey: string,
   res: Response,
@@ -21,6 +21,6 @@ export const verifyJwtToken = (
   try {
     return jwt.verify(token, secretKey);
   } catch {
-    refreshToken(cookie.RefreshToken, res as Response);
+    return refreshToken(cookie.RefreshToken, res as Response);
   }
 };

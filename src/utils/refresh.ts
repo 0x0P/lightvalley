@@ -7,13 +7,14 @@ import { jwtUser } from "../types/jwt";
 
 export const refreshToken = async (refreshToken: string, res: Response) => {
   try {
+    if (!refreshToken) return null;
     const checkRefresh: jwtUser = jwt.verify(
       refreshToken,
       process.env.REFRESH as string
     ) as jwtUser;
-    const user: User = await db("users")
-      .select()
-      .where("id", checkRefresh.id)
+    const user = await db<User>("users")
+      .select("id", "name", "tag", "identifier")
+      .where("identifier", checkRefresh.identifier)
       .first();
     if (user) {
       const userData = {
@@ -29,10 +30,10 @@ export const refreshToken = async (refreshToken: string, res: Response) => {
       });
       return jwt.verify(accessToken, process.env.ACCESS as string);
     } else {
-      throw new Error("User not found");
+      res.status(404).json({ ok: false, error: "Auth:1" });
     }
   } catch (err) {
     console.error(err);
-    res.status(403).json({ error: "RefreshToken이 잘못됐어요" });
+    res.status(403).json({ ok: false, error: "Request : 2" });
   }
 };
