@@ -11,6 +11,8 @@ const router = Router();
 router.post("/", async (req, res) => {
   try {
     const { name, tag, pw }: authReqbody = req.body;
+    if (!name || !tag || !pw)
+      return res.status(400).json({ ok: false, error: "Request:1" });
     const identifier = name + "#" + tag;
     const user: User = await db("users")
       .select()
@@ -34,12 +36,12 @@ router.post("/", async (req, res) => {
         });
         res.send({ ok: true });
       } else {
-        res.send({ ok: false });
+        res.send({ ok: false, error: "Auth:2" });
       }
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error });
+    res.status(500).json({ ok: false, error });
   }
 });
 export default router;
