@@ -3,8 +3,10 @@ export interface Document {
   type: documentTypes;
   author: string;
   name: string;
+  identifier: string;
   displayname: string;
   content: string;
+  time: Date;
   read: number;
   edit: number;
 }
@@ -14,5 +16,5 @@ export enum documentTypes {
   FILE = "FILE",
   CATEGORY = "CATEGORY",
   SYSTEM = "SYSTEM",
-  TAMPLATE = "TAMPLATE",
+  TEMPLATE = "TEMPLATE",
 }
