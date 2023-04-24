@@ -6,6 +6,18 @@ export interface createDocumentReqBody {
   displayName: string;
   content: string;
   type: documentTypes;
+  time: Date;
+  read?: number;
+  edit?: number;
+}
+
+export interface editDocumentReqBody {
+  name: string;
+  type: documentTypes;
+  displayName?: string;
+  content?: string;
+  read?: number;
+  edit?: number;
 }
 
 export interface authReqbody {
