@@ -9,7 +9,7 @@ router.get("/:name", getAuth, async (req: Request, res: Response) => {
   const doc: Document = await db("documents")
     .select()
     .where("name", req.params.name)
-    .andWhere("type", req.params.type || documentTypes.DOCUMENT)
+    .andWhere("type", req.query.type || documentTypes.DOCUMENT)
     .orderBy("version", "desc")
     .limit(1)
     .first();
