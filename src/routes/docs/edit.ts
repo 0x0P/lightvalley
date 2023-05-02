@@ -49,14 +49,14 @@ router.put("/", getAuth, async (req: Request, res: Response) => {
       : document.read;
 
     const newDocument: Document = {
-      version: document.version + 1,
+      version: Number(document.version + 1),
       type: document.type,
       author: crypto
         .createHash("sha256")
         .update(req.ip + makeKey(10))
         .digest("hex"),
       name: name,
-      identifier: `${document.type}:${name}:${document.version + 1}`,
+      identifier: `${document.type}:${name}:${Number(document.version + 1)}`,
       displayname: displayName || document.displayname,
       content: content || document.content,
       time: new Date(),
