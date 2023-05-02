@@ -32,14 +32,16 @@ router.delete("/:name", getAuth, async (req: Request, res: Response) => {
       return res.status(403).json({ ok: false, status: "Docs:3" });
     }
     const del: Document = {
-      version: document.version + 1,
+      version: Number(document.version) + 1,
       type: document.type,
       author: crypto
         .createHash("sha256")
         .update(req.ip + makeKey(10))
         .digest("hex"),
       name: document.name,
-      identifier: `${document.type}:${document.name}:${document.version + 1}`,
+      identifier: `${document.type}:${document.name}:${
+        Number(document.version) + 1
+      }`,
       displayname: document.displayname,
       content: "삭제됨",
       time: new Date(),
@@ -76,7 +78,18 @@ router.delete(
     if (!canEdit) {
       return res.status(403).json({ ok: false, status: "Docs:3" });
     }
-    db("documents").select().where("name", name).andWhere("type", type).del();
+    db("documents")
+      .select()
+      .where("name", name)
+      .andWhere("type", type)
+      .del()
+      .then(() => {
+        res.status(200).json({ ok: true });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({ ok: false, status: "Server:1" });
+      });
   }
 );
 
