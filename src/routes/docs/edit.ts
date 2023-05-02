@@ -5,11 +5,11 @@ import { editDocumentReqBody } from "../../types/req";
 import * as crypto from "crypto";
 import { makeKey } from "../../utils/makeKey";
 import { checkPermission } from "../../utils/checkPermission";
-import { checkAuth } from "../../middlewares/checkAuth";
+import { getAuth } from "../../middlewares/getAuth";
 
 const router = Router();
 
-router.put("/", checkAuth, async (req: Request, res: Response) => {
+router.put("/", getAuth, async (req: Request, res: Response) => {
   try {
     const {
       name,

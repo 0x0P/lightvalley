@@ -49,7 +49,7 @@ const createRootUser = async () => {
       identifier: `${name}#${tag}`,
       password: hash,
       time: new Date(),
-      permission: permission.admin,
+      permission: permission.owner,
     };
     await db("users").insert(user);
     console.log("✨ 소유자 계정 생성 완료 ✨");

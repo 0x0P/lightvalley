@@ -20,6 +20,10 @@ export interface editDocumentReqBody {
   edit?: number;
 }
 
+export interface deleteDocumentReqBody {
+  name: string;
+}
+
 export interface authReqbody {
   name: string;
   tag: number;

@@ -9,6 +9,7 @@ export interface User {
 }
 
 export enum permission {
+  owner = 0,
   admin = 1,
   user = 2,
   guest = 3,
