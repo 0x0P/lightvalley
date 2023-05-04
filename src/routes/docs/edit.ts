@@ -51,10 +51,12 @@ router.put("/", getAuth, async (req: Request, res: Response) => {
     const newDocument: Document = {
       version: Number(document.version) + 1,
       type: document.type,
-      author: crypto
-        .createHash("sha256")
-        .update(req.ip + makeKey(10))
-        .digest("hex"),
+      author:
+        req.user.id ||
+        crypto
+          .createHash("sha256")
+          .update(req.ip + makeKey(15))
+          .digest("hex"),
       name: name,
       identifier: `${document.type}:${name}:${Number(document.version) + 1}`,
       displayname: displayName || document.displayname,

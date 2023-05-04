@@ -1,12 +1,13 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { db } from "../../global";
 import { Document, documentTypes } from "../../types/document";
 import { createDocumentReqBody } from "../../types/req";
 import * as crypto from "crypto";
 import { makeKey } from "../../utils/makeKey";
+import { checkAuth } from "../../middlewares/checkAuth";
 
 const router = Router();
-router.post("/", async (req, res) => {
+router.post("/", checkAuth, async (req: Request, res: Response) => {
   try {
     const {
       name,
@@ -18,12 +19,15 @@ router.post("/", async (req, res) => {
     }: createDocumentReqBody = req.body;
     if (![name, displayName, content, type].every(Boolean))
       return res.status(400).json({ ok: false });
-    const hash = crypto.createHash("sha256");
-    hash.update(req.ip + makeKey(10));
     const document: Document = {
       version: 1,
       type: documentTypes[type],
-      author: hash.digest("hex"),
+      author:
+        req.user.id ||
+        crypto
+          .createHash("sha256")
+          .update(req.ip + makeKey(15))
+          .digest("hex"),
       name,
       identifier: `${type}:${name}:1`,
       displayname: displayName,
