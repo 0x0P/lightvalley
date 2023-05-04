@@ -6,18 +6,18 @@ import { checkPermission } from "../../utils/checkPermission";
 import { getAuth } from "../../middlewares/getAuth";
 
 router.get("/:name", getAuth, async (req: Request, res: Response) => {
+  const type = req.query.type || documentTypes.DOCUMENT;
   const docs: Array<Document> = await db("documents")
     .select()
     .where("name", req.params.name)
-    .andWhere("type", req.query.type || documentTypes.DOCUMENT)
+    .andWhere("type", type)
     .orderBy("version", "desc");
   const history: Array<Document> = [];
-  docs.map(async (doc: Document) => {
+  for (const doc of docs) {
     if (await checkPermission(req.user.id, doc.read)) {
       history.push(doc);
-      console.log(history);
     }
-  });
+  }
   res.send({ docs: history });
 });
 export default router;
