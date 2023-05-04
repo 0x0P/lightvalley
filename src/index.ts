@@ -10,7 +10,7 @@ const port = 3000;
 dotenv.config({ path: "../.env" });
 
 app.set("trust proxy", 1);
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use("/", index);
