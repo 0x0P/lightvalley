@@ -52,7 +52,7 @@ router.put("/", getAuth, async (req: Request, res: Response) => {
       version: Number(document.version) + 1,
       type: document.type,
       author:
-        req.user.id ||
+        req.user.identifier ||
         crypto
           .createHash("sha256")
           .update(req.ip + makeKey(15))

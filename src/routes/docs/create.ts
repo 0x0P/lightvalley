@@ -23,7 +23,7 @@ router.post("/", checkAuth, async (req: Request, res: Response) => {
       version: 1,
       type: documentTypes[type],
       author:
-        req.user.id ||
+        req.user.identifier ||
         crypto
           .createHash("sha256")
           .update(req.ip + makeKey(15))
