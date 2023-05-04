@@ -12,12 +12,13 @@ router.get("/:name", getAuth, async (req: Request, res: Response) => {
     .where("name", req.params.name)
     .andWhere("type", type)
     .orderBy("version", "desc");
+  if (!docs) return res.status(404).json({ ok: false, status: "Docs:1" });
   const history: Array<Document> = [];
   for (const doc of docs) {
     if (await checkPermission(req.user.id, doc.read)) {
       history.push(doc);
     }
   }
-  res.send({ docs: history });
+  res.send({ ok: true, docs: history });
 });
 export default router;
