@@ -14,7 +14,27 @@ router.get("/:name", getAuth, async (req: Request, res: Response) => {
     .limit(1)
     .first();
   if (doc) {
-    if (await checkPermission(req.user.id || 3, doc.read)) {
+    if (await checkPermission(req.user.id, doc.read)) {
+      res.status(200).json({ ok: true, doc });
+    } else {
+      res.status(403).json({ ok: false, status: "Docs:2" });
+    }
+  } else {
+    res.status(404).json({ ok: false, status: "Docs:1" });
+  }
+});
+
+router.get("/:name/:version", getAuth, async (req: Request, res: Response) => {
+  const doc: Document = await db("documents")
+    .select()
+    .where("name", req.params.name)
+    .andWhere("version", req.params.version)
+    .andWhere("type", req.query.type || documentTypes.DOCUMENT)
+    .orderBy("version", "desc")
+    .limit(1)
+    .first();
+  if (doc) {
+    if (await checkPermission(req.user.id, doc.read)) {
       res.status(200).json({ ok: true, doc });
     } else {
       res.status(403).json({ ok: false, status: "Docs:2" });
