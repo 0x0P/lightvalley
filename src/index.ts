@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 const app = express();
-const port = 3000;
+const port = 80;
 
 dotenv.config({ path: "../.env" });
 
