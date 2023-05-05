@@ -14,7 +14,7 @@ export const checkAuth = async (
     req.cookies
   );
   if (!decoded) {
-    res.status(403).json({ ok: false, status: "Auth:1/TEST" });
+    res.status(403).json({ ok: false, status: "Auth:1" });
     return;
   }
   req.user = decoded;

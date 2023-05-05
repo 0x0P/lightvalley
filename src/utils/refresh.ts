@@ -30,7 +30,7 @@ export const refreshToken = async (refreshToken: string, res: Response) => {
       });
       return jwt.verify(accessToken, process.env.ACCESS as string);
     } else {
-      res.status(404).json({ ok: false, status: "Auth:1" });
+      res.status(404).json({ ok: false, status: "Auth:1/TEST" });
     }
   } catch (error) {
     console.error(error);
