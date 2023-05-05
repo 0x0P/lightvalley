@@ -4,10 +4,10 @@ import { Document, documentTypes } from "../../types/document";
 import { createDocumentReqBody } from "../../types/req";
 import * as crypto from "crypto";
 import { makeKey } from "../../utils/makeKey";
-import { checkAuth } from "../../middlewares/checkAuth";
+import { getAuth } from "../../middlewares/getAuth";
 
 const router = Router();
-router.post("/", checkAuth, async (req: Request, res: Response) => {
+router.post("/", getAuth, async (req: Request, res: Response) => {
   try {
     const {
       name,
